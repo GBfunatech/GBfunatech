@@ -17,10 +17,10 @@ class _SettingsPageState extends State<SettingsPage> {
   bool daysInAdvanceReminder = true;
   TimeOfDay bestNotificationTime = const TimeOfDay(hour: 10, minute: 30);
 
-  // Toggles for various settings
-  void toggleShowAverageInLastRefueling() {
+  // Toggle with a boolean parameter
+  void toggleShowAverageInLastRefueling(bool value) {
     setState(() {
-      showAverageInLastRefueling = !showAverageInLastRefueling;
+      showAverageInLastRefueling = value;
     });
   }
 

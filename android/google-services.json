@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "754061800789",
+    "firebase_url": "https://cartrackproject-beb32-default-rtdb.firebaseio.com",
+    "project_id": "cartrackproject-beb32",
+    "storage_bucket": "cartrackproject-beb32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754061800789:android:b273d9c78ed55cff8aabdc",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlS2AYOLkxuBjlky2uLRwDjVIYNompPXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'database_helper.dart'; // Import the DatabaseHelper
+import 'database/database_helper.dart'; // Import the DatabaseHelper
 
 class VehicleDetailPage extends StatefulWidget {
   final Map<String, dynamic>? vehicle;

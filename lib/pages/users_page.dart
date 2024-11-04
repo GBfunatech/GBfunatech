@@ -153,7 +153,12 @@ class _UsersPageState extends State<UsersPage> {
 
     // Assuming you have a 'vehicles' collection in Firestore
     QuerySnapshot vehiclesSnapshot = await _firestore.collection('vehicles').get();
-    List<String> vehicleList = vehiclesSnapshot.docs.map((doc) => doc['name']).toList();
+    List<String> vehicleList = vehiclesSnapshot.docs
+        .map((doc) => doc['name'] as String?)
+        .where((name) => name != null)
+        .cast<String>()
+        .toList();
+
 
     if (vehicleList.isEmpty) {
       // No vehicles available

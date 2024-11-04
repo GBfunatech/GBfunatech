@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import FontAwesome Icons
-import 'package:url_launcher/url_launcher.dart'; // For launching URLs
+import "package:url_launcher/url_launcher.dart"; // For launching URLs
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);

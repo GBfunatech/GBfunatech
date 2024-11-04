@@ -36,27 +36,28 @@ class _FuelListPageState extends State<FuelListPage> {
     setState(() {
       filteredFuelTypes = fuelTypes
           .where((fuelType) =>
-              fuelType.toLowerCase().contains(searchQuery.toLowerCase()))
+          fuelType.toLowerCase().contains(searchQuery.toLowerCase()))
           .toList();
     });
   }
 
-  Future<void> _deleteFuelType(int index) async {
+  Future<bool?> _deleteFuelType(int index) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete "${filteredFuelTypes[index]}"?'),
+          title: const Text('Confirm Deletion'),
+          content: Text(
+              'Are you sure you want to delete "${filteredFuelTypes[index]}"?'),
           actions: [
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
             ),
             TextButton(
-              child: Text('Delete'),
+              child: const Text('Delete'),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -74,7 +75,9 @@ class _FuelListPageState extends State<FuelListPage> {
         filteredFuelTypes.removeAt(index);
         prefs.setStringList(selectedCategory, fuelTypes);
       });
+      return true; // Confirm that the item should be dismissed
     }
+    return false; // Cancel the dismissal if not confirmed
   }
 
   Future<void> _editFuelType(int index) async {
@@ -102,8 +105,7 @@ class _FuelListPageState extends State<FuelListPage> {
 
           if (category != selectedCategory) {
             // Remove from old category and save to the new one
-            List<String> newCategoryList =
-                prefs.getStringList(category) ?? [];
+            List<String> newCategoryList = prefs.getStringList(category) ?? [];
             newCategoryList.add(fuelType);
             prefs.setStringList(category, newCategoryList);
           }
@@ -117,7 +119,7 @@ class _FuelListPageState extends State<FuelListPage> {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Search Fuel Types',
             border: InputBorder.none,
           ),
@@ -156,7 +158,7 @@ class _FuelListPageState extends State<FuelListPage> {
               return await _deleteFuelType(index);
             },
             child: ListTile(
-              leading: Icon(Icons.local_gas_station),
+              leading: const Icon(Icons.local_gas_station),
               title: Text(filteredFuelTypes[index]),
               onTap: () {
                 _editFuelType(index);
@@ -184,15 +186,14 @@ class _FuelListPageState extends State<FuelListPage> {
               }
 
               SharedPreferences.getInstance().then((prefs) {
-                List<String> categoryList =
-                    prefs.getStringList(category) ?? [];
+                List<String> categoryList = prefs.getStringList(category) ?? [];
                 categoryList.add(fuelType);
                 prefs.setStringList(category, categoryList);
               });
             });
           }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

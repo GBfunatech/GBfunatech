@@ -261,7 +261,7 @@ class _FormsPageState extends State<FormsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title:
-          \Text('Edit ${formDoc['formType']} Form'),
+          Text('Edit ${formDoc['formType']} Form'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
