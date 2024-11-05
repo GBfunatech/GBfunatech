@@ -1,0 +1,32 @@
+name: cartrackproject
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
+  font_awesome_flutter: ^10.4.0
+  url_launcher: ^6.1.10
+  shared_preferences: ^2.1.0
+  geolocator: ^13.0.1
+  google_maps_flutter: ^2.2.0
+  location: ^5.0.0
+  fl_chart: ^0.69.0
+  sqflite: ^2.0.0+4
+  firebase_core_web: ^2.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

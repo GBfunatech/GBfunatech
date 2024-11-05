@@ -1,0 +1,51 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("com.google.gms.google-services")
+    // Add Flutter Gradle Plugin
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.example.cartrackfinal"
+    compileSdk = 34 // Replace with your desired compileSdk version (e.g., 33)
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.cartrackfinal"
+        minSdk = 21 // Replace with desired minSdk version
+        targetSdk = 33 // Replace with desired targetSdk version
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug // Replace with your release signing config
+        }
+    }
+}
+
+// Add dependencies here, outside the `android` block
+dependencies {
+    // Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    // Firebase Analytics
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // Add other Firebase dependencies here as needed
+    // e.g., implementation("com.google.firebase:firebase-auth-ktx")
+}
+
+flutter {
+    source = "../.." // Location of your Flutter module source code
+}
