@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class VehicleUsersPage extends StatefulWidget {
   @override
@@ -75,27 +74,6 @@ class _VehicleUsersPageState extends State<VehicleUsersPage> {
     );
   }
 
-  Widget _buildTripAnalytics(List<DocumentSnapshot> trips) {
-    List<charts.Series<TripData, String>> series = [
-      charts.Series(
-        id: 'Mileage',
-        data: trips
-            .map((doc) => TripData(
-                tripStart: doc['tripStart'],
-                mileage: doc['mileage'] as double))
-            .toList(),
-        domainFn: (TripData trip, _) => trip.tripStart,
-        measureFn: (TripData trip, _) => trip.mileage,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      )
-    ];
-
-    return charts.BarChart(
-      series,
-      animate: true,
-    );
-  }
-
   Future<List<DocumentSnapshot>> _fetchTrips(String vehicleId) async {
     QuerySnapshot querySnapshot = await _firestore
         .collection('vehicles')
@@ -135,8 +113,6 @@ class _VehicleUsersPageState extends State<VehicleUsersPage> {
                       children: [
                         Text(
                             'Total Mileage: ${snapshot.data!.fold(0.0, (sum, doc) => sum + (doc['mileage'] as double))} km'),
-                        SizedBox(height: 10),
-                        _buildTripAnalytics(snapshot.data!),
                       ],
                     );
                   },
@@ -154,11 +130,4 @@ class _VehicleUsersPageState extends State<VehicleUsersPage> {
       ),
     );
   }
-}
-
-class TripData {
-  final String tripStart;
-  final double mileage;
-
-  TripData({required this.tripStart, required this.mileage});
 }

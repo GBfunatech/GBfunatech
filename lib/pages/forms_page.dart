@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class FormsPage extends StatefulWidget {
   @override
@@ -16,7 +15,6 @@ class _FormsPageState extends State<FormsPage> {
 
   Stream<QuerySnapshot> _getFormsStream() {
     User? user = _auth.currentUser;
-
     Query query = _firestore.collection('forms').where('userId', isEqualTo: user!.uid);
 
     if (selectedFormType != 'All') {
@@ -60,29 +58,6 @@ class _FormsPageState extends State<FormsPage> {
             style: TextStyle(fontSize: 16),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildChart(List<DocumentSnapshot> forms) {
-    List<charts.Series<FormData, String>> series = [
-      charts.Series(
-        id: 'Forms',
-        data: forms.map((doc) => FormData(doc['formType'], doc['amount'] as double)).toList(),
-        domainFn: (FormData data, _) => data.formType,
-        measureFn: (FormData data, _) => data.amount,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      ),
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 200.0,
-        child: charts.BarChart(
-          series,
-          animate: true,
-        ),
       ),
     );
   }
@@ -158,7 +133,6 @@ class _FormsPageState extends State<FormsPage> {
                 return Column(
                   children: [
                     _buildAnalytics(forms),
-                    _buildChart(forms),
                     Expanded(
                       child: ListView(
                         children: forms.map((DocumentSnapshot document) {
@@ -260,8 +234,7 @@ class _FormsPageState extends State<FormsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:
-          Text('Edit ${formDoc['formType']} Form'),
+          title: Text('Edit ${formDoc['formType']} Form'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -310,11 +283,4 @@ class _FormsPageState extends State<FormsPage> {
   Future<void> _deleteForm(String formId) async {
     await _firestore.collection('forms').doc(formId).delete();
   }
-}
-
-class FormData {
-  final String formType;
-  final double amount;
-
-  FormData(this.formType, this.amount);
 }
